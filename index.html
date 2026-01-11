@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARSTARZZ SHOP</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #121212; color: white; padding-bottom: 250px; }
+        header { background: #000; padding: 30px; text-align: center; border-bottom: 3px solid #ccff00; }
+        h1 { margin: 0; color: #ccff00; letter-spacing: 3px; text-transform: uppercase; font-weight: bold; }
+        p { color: #aaa; margin: 5px 0 0; font-size: 0.9rem; letter-spacing: 1px; }
+        
+        #lista-productos { 
+            display: flex; flex-wrap: wrap; justify-content: center; 
+            gap: 20px; padding: 25px; max-width: 1100px; margin: 0 auto; 
+        }
+        
+        .tarjeta { 
+            background: #1e1e1e; width: 170px; padding: 15px; border-radius: 15px; 
+            text-align: center; border: 1px solid #333; transition: 0.3s;
+        }
+        .tarjeta:hover { border-color: #ccff00; transform: translateY(-5px); }
+        
+        .img-prod { width: 140px; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 10px; }
+        .tarjeta b { display: block; font-size: 1rem; height: 40px; overflow: hidden; }
+        
+        .precio { color: #ccff00; font-weight: bold; display: block; margin: 10px 0; font-size: 1.3rem; }
+        
+        .btn-add { 
+            background: #ccff00; color: #000; border: none; padding: 12px; 
+            width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; 
+            text-transform: uppercase;
+        }
+
+        .footer { 
+            position: fixed; bottom: 0; width: 100%; background: #000; 
+            padding: 20px; text-align: center; border-top: 2px solid #333; z-index: 1000;
+        }
+        .total-txt { font-size: 1.5rem; margin-bottom: 15px; }
+        .btn-ws { 
+            background: #25D366; color: white; text-decoration: none; padding: 15px; 
+            display: block; border-radius: 10px; font-weight: bold; max-width: 350px; 
+            margin: 0 auto; font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BARSTARZZ</h1>
+    <p>WORKOUT & CALISTHENICS EQUIPMENT</p>
+</header>
+
+<div id="lista-productos"></div>
+
+<div class="footer">
+    <div class="total-txt">TOTAL: <span style="color:#ccff00">S/ <span id="monto">0.00</span></span></div>
+    <a href="#" class="btn-ws" onclick="enviarPedido()">💪 PEDIR POR WHATSAPP</a>
+</div>
+
+<script>
+    // Se asocian los productos con las imágenes que subiste
+    const
