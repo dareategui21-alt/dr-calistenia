@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,21 +8,28 @@
     <title>BARSTARZZ SHOP</title>
     <link rel="icon" type="image/png" href="logo.png">
     <style>
-        body { font-family: 'Arial', sans-serif; margin: 0; background: #121212; color: white; padding-bottom: 250px; }
+        body { font-family: 'Arial', sans-serif; margin: 0; background: #121212; color: white; padding-bottom: 300px; }
         header { 
             background: #000 url('fondo.png') no-repeat center center; 
             background-size: cover; padding: 40px 20px; text-align: center; border-bottom: 4px solid #ccff00;
         }
         .logo-barstarzz { width: 100px; height: auto; margin-bottom: 10px; border-radius: 10px; }
         h1 { margin: 0; color: #ccff00; text-transform: uppercase; font-size: 2.2rem; }
+        
         #lista-productos { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
         .tarjeta { background: #1e1e1e; width: 150px; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #333; }
         .img-prod { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; background: #333; }
         .precio { color: #ccff00; font-weight: bold; display: block; margin: 10px 0; font-size: 1.3rem; }
         .btn-add { background: #ccff00; color: black; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
-        .footer { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95); padding: 20px; text-align: center; border-top: 2px solid #333; z-index: 1000; }
-        .pagos-iconos img { height: 40px; margin: 0 10px; border-radius: 5px; background: white; padding: 2px; }
-        .btn-ws { background: #25D366; color: white; text-decoration: none; padding: 15px 25px; display: inline-block; border-radius: 10px; font-weight: bold; margin-top: 10px; }
+
+        /* ESTILOS DEL CARRITO */
+        .footer { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.98); padding: 15px 0; text-align: center; border-top: 3px solid #ccff00; z-index: 1000; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
+        #carrito-detalle { max-height: 120px; overflow-y: auto; margin-bottom: 10px; padding: 0 20px; font-size: 0.9rem; }
+        .item-carrito { display: flex; justify-content: space-between; align-items: center; background: #222; margin: 4px 0; padding: 5px 10px; border-radius: 5px; border-left: 3px solid #ccff00; }
+        .btn-eliminar { background: #ff4444; color: white; border: none; padding: 2px 8px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-weight: bold; }
+        
+        .pagos-iconos img { height: 35px; margin: 5px 10px; border-radius: 5px; background: white; padding: 2px; }
+        .btn-ws { background: #25D366; color: white; text-decoration: none; padding: 12px 25px; display: inline-block; border-radius: 10px; font-weight: bold; margin-top: 5px; font-size: 1.1rem; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -35,53 +44,106 @@
     <div class="tarjeta">
         <img src="anillas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=ANILLAS'">
         <p><b>Anillas</b></p><span class="precio">S/ 119.90</span>
-        <button class="btn-add" onclick="sumar('Anillas', 119.90)">Añadir</button>
+        <button class="btn-add" onclick="agregarAlCarrito('Anillas', 119.90)">Añadir</button>
     </div>
     <div class="tarjeta">
         <img src="bandas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=BANDAS'">
         <p><b>Bandas</b></p><span class="precio">S/ 79.90</span>
-        <button class="btn-add" onclick="sumar('Bandas', 79.90)">Añadir</button>
+        <button class="btn-add" onclick="agregarAlCarrito('Bandas', 79.90)">Añadir</button>
     </div>
     <div class="tarjeta">
         <img src="magnesia.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=MAGNESIO'">
         <p><b>Magnesio</b></p><span class="precio">S/ 70.90</span>
-        <button class="btn-add" onclick="sumar('Magnesio', 70.90)">Añadir</button>
+        <button class="btn-add" onclick="agregarAlCarrito('Magnesio', 70.90)">Añadir</button>
     </div>
     <div class="tarjeta">
         <img src="paralelas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=PARALELAS'">
         <p><b>Paralelas</b></p><span class="precio">S/ 149.90</span>
-        <button class="btn-add" onclick="sumar('Paralelas', 149.90)">Añadir</button>
+        <button class="btn-add" onclick="agregarAlCarrito('Paralelas', 149.90)">Añadir</button>
     </div>
     <div class="tarjeta">
         <img src="rodillo.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=RODILLO'">
         <p><b>Rodillo</b></p><span class="precio">S/ 99.90</span>
-        <button class="btn-add" onclick="sumar('Rodillo', 99.90)">Añadir</button>
+        <button class="btn-add" onclick="agregarAlCarrito('Rodillo', 99.90)">Añadir</button>
     </div>
 </div>
 
 <div class="footer">
+    <div id="carrito-detalle">
+        <p style="color: #888;">El carrito está vacío</p>
+    </div>
+
+    <div style="font-size: 1.4rem; font-weight: bold; margin-bottom: 5px;">
+        TOTAL: <span style="color:#ccff00">S/ <span id="monto">0.00</span></span>
+    </div>
+
     <div class="pagos-iconos">
         <img src="yape.png" alt="Yape" onerror="this.style.display='none'">
         <img src="plin.png" alt="Plin" onerror="this.style.display='none'">
     </div>
-    <div style="font-size: 1.5rem;">TOTAL: <span style="color:#ccff00">S/ <span id="monto">0.00</span></span></div>
-    <a href="#" class="btn-ws" onclick="enviarPedido()">💪 PEDIR POR WHATSAPP</a>
+
+    <button class="btn-ws" onclick="enviarPedido()">💪 PEDIR POR WHATSAPP</button>
 </div>
 
 <script>
-    let total = 0;
-    let pedido = "";
+    let carrito = [];
 
-    function sumar(nombre, precio) {
-        total += precio;
-        pedido += "- " + nombre + " (S/ " + precio.toFixed(2) + ")%0A";
-        document.getElementById('monto').innerText = total.toFixed(2);
+    function agregarAlCarrito(nombre, precio) {
+        carrito.push({ nombre, precio });
+        actualizarInterfaz();
+    }
+
+    function eliminarDelCarrito(index) {
+        carrito.splice(index, 1);
+        actualizarInterfaz();
+    }
+
+    function actualizarInterfaz() {
+        const contenedor = document.getElementById('carrito-detalle');
+        const montoTotal = document.getElementById('monto');
+        
+        if (carrito.length === 0) {
+            contenedor.innerHTML = '<p style="color: #888;">El carrito está vacío</p>';
+            montoTotal.innerText = "0.00";
+            return;
+        }
+
+        let html = "";
+        let total = 0;
+
+        carrito.forEach((producto, index) => {
+            total += producto.precio;
+            html += `
+                <div class="item-carrito">
+                    <span>${producto.nombre} - S/ ${producto.precio.toFixed(2)}</span>
+                    <button class="btn-eliminar" onclick="eliminarDelCarrito(${index})">X</button>
+                </div>
+            `;
+        });
+
+        contenedor.innerHTML = html;
+        montoTotal.innerText = total.toFixed(2);
+        // Autoscroll al último producto añadido
+        contenedor.scrollTop = contenedor.scrollHeight;
     }
 
     function enviarPedido() {
-        if(total === 0) return alert("Selecciona tus productos");
-        const url = "https://wa.me/51991684812?text=Hola *BARSTARZZ*, mi pedido es:%0A" + pedido + "%0A*TOTAL: S/ " + total.toFixed(2) + "*";
-        window.open(url);
+        if (carrito.length === 0) {
+            return alert("Tu carrito está vacío. ¡Añade algo para entrenar!");
+        }
+
+        let total = 0;
+        let mensajePedido = "Hola *BARSTARZZ*, mi pedido es:%0A%0A";
+        
+        carrito.forEach(prod => {
+            mensajePedido += `✅ ${prod.nombre} (S/ ${prod.precio.toFixed(2)})%0A`;
+            total += prod.precio;
+        });
+
+        mensajePedido += `%0A*TOTAL A PAGAR: S/ ${total.toFixed(2)}*`;
+        
+        const url = `https://wa.me/51991684812?text=${mensajePedido}`;
+        window.open(url, '_blank');
     }
 </script>
 </body>
