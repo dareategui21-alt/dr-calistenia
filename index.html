@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BARSTARZZ SHOP</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; background: #121212; color: white; padding-bottom: 250px; }
+        header { 
+            background: #000 url('fondo.png') no-repeat center center; 
+            background-size: cover; padding: 40px 20px; text-align: center; border-bottom: 4px solid #ccff00;
+        }
+        .logo-barstarzz { width: 100px; height: auto; margin-bottom: 10px; border-radius: 10px; }
+        h1 { margin: 0; color: #ccff00; text-transform: uppercase; font-size: 2.2rem; }
+        #lista-productos { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+        .tarjeta { background: #1e1e1e; width: 150px; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #333; }
+        .img-prod { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; background: #333; }
+        .precio { color: #ccff00; font-weight: bold; display: block; margin: 10px 0; font-size: 1.3rem; }
+        .btn-add { background: #ccff00; color: black; border: none; padding: 10px; width: 100%; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+        .footer { position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95); padding: 20px; text-align: center; border-top: 2px solid #333; z-index: 1000; }
+        .pagos-iconos img { height: 40px; margin: 0 10px; border-radius: 5px; background: white; padding: 2px; }
+        .btn-ws { background: #25D366; color: white; text-decoration: none; padding: 15px 25px; display: inline-block; border-radius: 10px; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" class="logo-barstarzz" onerror="this.src='https://via.placeholder.com/100?text=BARSTARZZ'">
+    <h1>BARSTARZZ SHOP</h1>
+    <p>WORKOUT & CALISTHENICS EQUIPMENT</p>
+</header>
+
+<div id="lista-productos">
+    <div class="tarjeta">
+        <img src="anillas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=ANILLAS'">
+        <p><b>Anillas</b></p><span class="precio">S/ 119.90</span>
+        <button class="btn-add" onclick="sumar('Anillas', 119.90)">Añadir</button>
+    </div>
+    <div class="tarjeta">
+        <img src="bandas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=BANDAS'">
+        <p><b>Bandas</b></p><span class="precio">S/ 79.90</span>
+        <button class="btn-add" onclick="sumar('Bandas', 79.90)">Añadir</button>
+    </div>
+    <div class="tarjeta">
+        <img src="magnesia.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=MAGNESIA'">
+        <p><b>Magnesia</b></p><span class="precio">S/ 70.90</span>
+        <button class="btn-add" onclick="sumar('Magnesia', 70.90)">Añadir</button>
+    </div>
+    <div class="tarjeta">
+        <img src="paralelas.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=PARALELAS'">
+        <p><b>Paralelas</b></p><span class="precio">S/ 149.90</span>
+        <button class="btn-add" onclick="sumar('Paralelas', 149.90)">Añadir</button>
+    </div>
+    <div class="tarjeta">
+        <img src="rodillo.png" class="img-prod" onerror="this.src='https://via.placeholder.com/150/333/ccff00?text=RODILLO'">
+        <p><b>Rodillo</b></p><span class="precio">S/ 99.90</span>
+        <button class="btn-add" onclick="sumar('Rodillo', 99.90)">Añadir</button>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="pagos-iconos">
+        <img src="yape.png" alt="Yape" onerror="this.style.display='none'">
+        <img src="plin.png" alt="Plin" onerror="this.style.display='none'">
+    </div>
+    <div style="font-size: 1.5rem;">TOTAL: <span style="color:#ccff00">S/ <span id="monto">0.00</span></span></div>
+    <a href="#" class="btn-ws" onclick="enviarPedido()">💪 PEDIR POR WHATSAPP</a>
+</div>
+
+<script>
+    let total = 0;
+    let pedido = "";
+
+    function sumar(nombre, precio) {
+        total += precio;
+        pedido += "- " + nombre + " (S/ " + precio.toFixed(2) + ")%0A";
+        document.getElementById('monto').innerText = total.toFixed(2);
+    }
+
+    function enviarPedido() {
+        if(total === 0) return alert("Selecciona tus productos");
+        const url = "https://wa.me/51991684812?text=Hola *BARSTARZZ*, mi pedido es:%0A" + pedido + "%0A*TOTAL: S/ " + total.toFixed(2) + "*";
+        window.open(url);
+    }
+</script>
+</body>
+</html>
